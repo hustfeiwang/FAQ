@@ -1,7 +1,33 @@
 # 说明
+
 记录一些在大数据平台上出现问题的思考与分析
 
+所以问题详细记录在[该页面](./qa/qa.md)，可以直接进入[该页面](./qa/qa.md)进行搜索关键词查询。
+
+# 写在前面
+
+在生产环境中使用Spark，了解参数配置很重要。
+
+这是[spark官方配置文档](https://spark.apache.org/docs/latest/configuration.html)，建议熟练掌握参数配置，了解参数功能。
+
+日志的查阅也很重要，讲解一下日志的分类。（我个人理解，有误请指出）
+
+- 通过azkaban提交任务产生的日志，打印出的日志同用yarn-client模式提交后，打印到console的日志相似。
+- yarn中默认的日志是ApplicationMaster日志。（待后续确认）
+- 开启yarn聚合日志操作之后可以把每个container日志在yarn显示，这里面包括executor所在container的日志，如果需要看具体container的日志，可以查阅。
+- 如果未开启yarn聚合日志操作，需要到每个executor所在host查看其container日志。
+- hadoop的jobhistory是与spark history结合，可以看到可视化的spark执行过程，可以点击stage，storage以及environment看详细执行情况，点击stage可以具体看到每个stage的运行时间，以及在stage运行中出现的错误
+- yarn的resourceManager日志可以看具体分配资源情况
+- yarn的nodemanager日志可以得到每个executor container在每个node上的资源分配管理情况。
 
 
-## [spark任务 jar 包执行报错-- java.lang.NoSuchMethodError](./qa/2018/09.10-09.14.md/#NoSuchMethodError)
 
+# 问题列表
+
+## [Spark任务写入HDFS无反应](./qa/qa.md/#SLOWHDFSWRITE)
+
+## [Filesystem closed](./qa/qa.md/#FileSystemClosed)
+
+## [Failed to get database default, returning NoSuchObjectException](./qa/qa.md/#MetaStoreError)
+
+##[Spark任务executor在动态分配前提下没有释放](./qa/qa.md/#ExecutorNotRelease)
