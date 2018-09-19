@@ -80,7 +80,9 @@ parquet是一种列式数据存储格式，parquet在写入hdfs时要构建自�
 
   多半是hive配置问题，排查hive-site.xml配置是否正确
 
-###  Spark任务executor在动态分配前提下没有释放<div id="ExecutorNotRelease"></div>
+###  Spark任务executor在动态分配前提下没有释放
+
+<div id="ExecutorNotRelease"></div>
 
 - 问题描述
 
