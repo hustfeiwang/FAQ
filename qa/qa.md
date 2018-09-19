@@ -96,15 +96,15 @@ parquet是一种列式数据存储格式，parquet在写入hdfs时要构建自�
 
 
 
-| 参数|默认值 |说明|
-| ---------------------------------------------------------- | -------------------------------------- | ------------------------------------------------------------ |
-| `spark.dynamicAllocation.enabled`                          | false                                  | Whether to use dynamic resource allocation, which scales the number of executors registered with this application up and down based on the workload. For more detail, see the description [here](https://spark.apache.org/docs/latest/job-scheduling.html#dynamic-resource-allocation).   This requires `spark.shuffle.service.enabled` to be set. The following configurations are also relevant:`spark.dynamicAllocation.minExecutors`,`spark.dynamicAllocation.maxExecutors`, and`spark.dynamicAllocation.initialExecutors` |
-| `spark.dynamicAllocation.executorIdleTimeout`              | 60s                                    | If dynamic allocation is enabled and an executor has been idle for more than this duration, the executor will be removed. For more detail, see this [description](https://spark.apache.org/docs/latest/job-scheduling.html#resource-allocation-policy). |
-| `spark.dynamicAllocation.cachedExecutorIdleTimeout`        | infinity                               | If dynamic allocation is enabled and an executor which has cached data blocks has been idle for more than this duration, the executor will be removed. For more details, see this [description](https://spark.apache.org/docs/latest/job-scheduling.html#resource-allocation-policy). |
-| `spark.dynamicAllocation.initialExecutors`                 | `spark.dynamicAllocation.minExecutors` | Initial number of executors to run if dynamic allocation is enabled.   If `--num-executors` (or `spark.executor.instances`) is set and larger than this value, it will be used as the initial number of executors. |
-| `spark.dynamicAllocation.maxExecutors`                     | infinity                               | Upper bound for the number of executors if dynamic allocation is enabled. |
-| `spark.dynamicAllocation.minExecutors`                     | 0                                      | Lower bound for the number of executors if dynamic allocation is enabled. |
-| `spark.dynamicAllocation.schedulerBacklogTimeout`          | 1s                                     | If dynamic allocation is enabled and there have been pending tasks backlogged for more than this duration, new executors will be requested. For more detail, see this [description](https://spark.apache.org/docs/latest/job-scheduling.html#resource-allocation-policy). |
-| `spark.dynamicAllocation.sustainedSchedulerBacklogTimeout` | `schedulerBacklogTimeout`              | Same as `spark.dynamicAllocation.schedulerBacklogTimeout`, but used only for subsequent executor requests. For more detail, see this [description](https://spark.apache.org/docs/latest/job-scheduling.html#resource-allocation-policy). |
+| 参数|默认值 |
+| ---------------------------------------------------------- | -------------------------------------- |
+| `spark.dynamicAllocation.enabled`                          | false                                  |
+| `spark.dynamicAllocation.executorIdleTimeout`              | 60s                                    |
+| `spark.dynamicAllocation.cachedExecutorIdleTimeout`        | infinity                               |
+| `spark.dynamicAllocation.initialExecutors`                 | `spark.dynamicAllocation.minExecutors` |
+| `spark.dynamicAllocation.maxExecutors`                     | infinity                               |
+| `spark.dynamicAllocation.minExecutors`                     | 0                                      |
+| `spark.dynamicAllocation.schedulerBacklogTimeout`          | 1s                                     |
+| `spark.dynamicAllocation.sustainedSchedulerBacklogTimeout` | `schedulerBacklogTimeout`              |
 
 spark.dynamicAllocation.cachedExecutorIdleTimeout 这个参数默认是无穷大的，也就是说如果一个executor有cache数据是不可能被动态回收的。因为用户将某个RDD cache到内存中，因此这些executor即使运行完成也不会被释放，可以根据具体使用情况设置spark.dynamicAllocation.cachedExecutorIdleTimeout的值，合理利用资源。
