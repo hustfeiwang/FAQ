@@ -36,3 +36,5 @@
 ## [Failed to get database default, returning NoSuchObjectException](./qa/qa.md/#MetaStoreError)
 
 ## [Spark任务executor在动态分配前提下没有释放](./qa/qa.md/#ExecutorNotRelease)
+
+##  [Spark sql 参数查看](./qa/qa.md/#sqlconf)
