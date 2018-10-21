@@ -23,8 +23,15 @@
 ### 常见问题
 
 - 使用姿势有误
+
+  > 用户使用猛犸在线提交还好，一些常见的配置不会出现问题，比如spark.yarn.access.namenodes的配置，还有其他域集群有关的参数配置。
+  >
+  > > 用户在使用自己的client提交任务时，特别是针对一些新手用户，往往会出现一些与集群相关参数的配置问题，这时候就需要查看日志，观察所有参数是否有问题。
+
 - 参数配置不当，比如内存配置太小，各种超时时间配置太小，参考[spark官方配置文档](https://spark.apache.org/docs/latest/configuration.html)
+
 - jar包冲突，比如有多个相同功能的不同版本jar包，用户没有及时清除无用jar包，导致类加载冲突，从而程序未执行到期望的程序代码，出现错误
+
 - 应用程序编写问题，自查
 
 # 问题列表
@@ -38,3 +45,6 @@
 ## [Spark任务executor在动态分配前提下没有释放](./qa/qa.md/#ExecutorNotRelease)
 
 ##  [Spark sql 参数查看](./qa/qa.md/#sqlconf)
+
+## [driver连接超时](./qa/qa.md/#driver-timeout)
+

@@ -205,3 +205,29 @@ spark-2.3.1结果如下：
 | spark.sql.variable.substitute                            | true                                                         | This enables substitution using syntax like ${var} ${system:var} and ${env:var}. |
 | spark.sql.warehouse.dir                                  | file:/home/wangfei3/todo/spark-2.3.1/spark-warehouse         | The default location for managed databases and tables.       |
 
+## driver连接超时
+
+<div id="driver-timeout"></div>
+
+driver连接超时，是因为driver繁忙，无法及时应答，可以从几个方面分析。
+
+第一就是线程数，太少，要处理的请求太多，可以增大spark.driver.cores.
+
+第二个问题可能是内存问题，如果内存紧张，driver在发生gc，则无法及时应答，这时候需要增大spark.driver.memory和spark.driver.memoryoverhead。
+
+判断内存状态可以添加以下参数到`spark.driver.extraJavaOptions`
+
+```bash
+-verbose:gc 
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:+PrintGCDetails
+-XX:+PrintGCTimeStamps
+-XX:+PrintGCDateStamps
+```
+
+
+
+另一个可能是网络问题，如果网络延迟高，这时候需要加大spark.network.timeout。
+
+另外如果实在yarn client模式下跑spark应用，由于driver位于客户机上，而其他executor和am都在集群之上，因此不同的网络环境造成通信延迟高，可以考虑使用yarn cluster模式进行应用提交。
+
