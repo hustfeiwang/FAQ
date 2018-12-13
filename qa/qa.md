@@ -225,9 +225,23 @@ driver连接超时，是因为driver繁忙，无法及时应答，可以从几�
 -XX:+PrintGCDateStamps
 ```
 
-
+然后分析gc日志。
 
 另一个可能是网络问题，如果网络延迟高，这时候需要加大spark.network.timeout。
 
 另外如果实在yarn client模式下跑spark应用，由于driver位于客户机上，而其他executor和am都在集群之上，因此不同的网络环境造成通信延迟高，可以考虑使用yarn cluster模式进行应用提交。
 
+## 租约超期
+
+<div id="no-lease"></div>
+
+线上日志为:
+
+```
+org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.hdfs.server.namenode.LeaseExpiredException): No lease on /db_dump/music/Music_EventMeta/_temporary_dump/2018-12-10/part-00029.lzo.index.tmp (inode 62670948): File does not exist. Holder DFSClient_NONMAPREDUCE_531654048_148 does not have any open files.
+
+```
+
+租约超期一般是发生在多个task操作同一个文件，例如在spark开启speculation时，多个task会操纵同一个tmp文件，导致no lease.
+
+可以观察spark.speculation 是否是true，将其设为false.

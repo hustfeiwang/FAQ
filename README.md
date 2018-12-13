@@ -48,3 +48,5 @@
 
 ## [driver连接超时](./qa/qa.md/#driver-timeout)
 
+##[租约超期org.apache.hadoop.ipc.RemoteException(org.apache.hadoop.hdfs.server.namenode.LeaseExpiredException): No lease on](./qa/qa.md/#no-lease)
+
